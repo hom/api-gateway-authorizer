@@ -1,0 +1,54 @@
+service: api-gateway-guard
+frameworkVersion: "3"
+
+custom:
+  tableName: users-table-${sls:stage}
+
+provider:
+  name: aws
+  region: cn-northwest-1
+  runtime: nodejs18.x
+  endpointType: REGIONAL
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [UsersTable, Arn]
+  environment:
+    USERS_TABLE: ${self:custom.tableName}
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+          authorizer:
+            name: AuthGuard
+            resultTtlInSeconds: 0
+  AuthGuard:
+    handler: auth-guard.handler
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tableName}

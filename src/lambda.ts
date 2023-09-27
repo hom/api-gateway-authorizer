@@ -2,7 +2,7 @@ import serverlessExpress from '@vendia/serverless-express';
 import { NestFactory } from '@nestjs/core';
 import { Callback, Handler, Context } from 'aws-lambda';
 import { AppModule } from './app.module';
-export { authorizer } from './auth-guard';
+export { handler as authorizer } from './auth-guard';
 
 let server: Handler;
 

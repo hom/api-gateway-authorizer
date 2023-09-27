@@ -41,7 +41,7 @@ package:
 
 functions:
   api:
-    handler: dist/index.handler
+    handler: dist/lambda.handler
     description: Main handler
     events:
       - http:
@@ -51,10 +51,10 @@ functions:
           authorizer:
             name: AuthGuard
             resultTtlInSeconds: 0
-            identitySource: method.request.header.x-rough-estimate-api-key
+            identitySource: method.request.header.x-api-key
             type: request
   AuthGuard:
-    handler: dist/auth-guard.handler
+    handler: dist/lambda.authorizer
     description: AuthGuard handler
 
 resources:

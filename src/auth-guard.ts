@@ -38,12 +38,12 @@ function createAuthorizePolicy(principalId, effect, resource) {
   return {};
 }
 
-export async function authorizer(event: any) {
+export const handler: Handler = async (event: any) => {
   console.log(event);
-  const { type, methodArn, authorizationToken } = event;
+  const { type, methodArn, headers } = event;
   const principalId = '1234567890';
-  if (type !== 'TOKEN' || authorizationToken !== '1234567890') {
+  if (type !== 'REQUEST' || headers['x-api-key'] !== '1234567890') {
     return createAuthorizePolicy(principalId, 'Deny', methodArn);
   }
   return createAuthorizePolicy(principalId, 'Allow', methodArn);
-}
+};

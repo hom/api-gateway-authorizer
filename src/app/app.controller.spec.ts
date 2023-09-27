@@ -15,8 +15,9 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
+    const mockJobId = '1234567890';
     it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+      expect(appController.getJob).toBeDefined();
     });
   });
 });

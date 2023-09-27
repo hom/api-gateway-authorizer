@@ -1,8 +1,9 @@
 import serverlessExpress from '@vendia/serverless-express';
 import { NestFactory } from '@nestjs/core';
 import { Callback, Handler, Context } from 'aws-lambda';
-import { AppModule } from './app.module';
+import { AppModule } from './app/app.module';
 export { handler as authorizer } from './auth-guard';
+import 'source-map-support/register';
 
 let server: Handler;
 

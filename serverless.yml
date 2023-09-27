@@ -45,7 +45,10 @@ functions:
     description: Main handler
     events:
       - http:
-          path: job
+          path: /
+          method: ANY
+      - http:
+          path: '{proxy+}'
           method: ANY
           cors: true
           authorizer:
@@ -53,10 +56,6 @@ functions:
             resultTtlInSeconds: 0
             identitySource: method.request.header.x-api-key
             type: request
-      - http:
-          path: +{proxy}
-          method: ANY
-          cors: true
   AuthGuard:
     handler: dist/lambda.authorizer
     description: AuthGuard handler

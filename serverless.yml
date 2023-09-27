@@ -42,7 +42,7 @@ package:
 
 functions:
   api:
-    handler: index.handler
+    handler: lambda.handler
     description: Main handler
     events:
       - http:
@@ -55,7 +55,7 @@ functions:
             identitySource: method.request.header.Authorization
             type: token
   AuthGuard:
-    handler: auth-guard.handler
+    handler: lambda.guard
     description: AuthGuard handler
 
 resources:

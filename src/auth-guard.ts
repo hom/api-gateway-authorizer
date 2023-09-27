@@ -38,7 +38,7 @@ function createAuthorizePolicy(principalId, effect, resource) {
   return {};
 }
 
-export const handler: Handler = async (event: any) => {
+export async function authorizer(event: any) {
   console.log(event);
   const { type, methodArn, authorizationToken } = event;
   const principalId = '1234567890';
@@ -46,4 +46,4 @@ export const handler: Handler = async (event: any) => {
     return createAuthorizePolicy(principalId, 'Deny', methodArn);
   }
   return createAuthorizePolicy(principalId, 'Allow', methodArn);
-};
+}

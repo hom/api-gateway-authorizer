@@ -1,24 +1,45 @@
-module.exports.handler = async (event) => {
-  console.log(event);
-  const { methodArn, headers } = event;
-  const xApiKey = headers['x-api-key'] || '';
-  let effect = 'Deny';
-  if (xApiKey === '1234567890') {
-    effect = 'Allow';
-  }
+type PolicyDocumentStatement = {
+  Action: string;
+  Effect: string;
+  Resource: string | string[];
+};
 
-  const policy = {
-    principalId: '1234567890',
-    policyDocument: {
+type PolicyDocument = {
+  Version: string;
+  Statement: PolicyDocumentStatement[];
+};
+
+type Policy = {
+  principalId: string;
+  policyDocument: PolicyDocument;
+};
+
+function createAuthorizePolicy(principalId, effect, resource) {
+  if (effect && resource) {
+    const policyDocument = {
       Version: '2012-10-17',
       Statement: [
         {
           Action: 'execute-api:Invoke',
           Effect: effect,
-          Resource: methodArn,
+          Resource: resource,
         },
       ],
-    },
-  };
-  return policy;
+    };
+    return {
+      principalId,
+      policyDocument,
+    };
+  }
+  return {};
+}
+
+module.exports.handler = async (event) => {
+  console.log(event);
+  const { type, methodArn, authorizationToken } = event;
+  const principalId = '1234567890';
+  if (type !== 'TOKEN' || authorizationToken !== '1234567890') {
+    return createAuthorizePolicy(principalId, 'Deny', methodArn);
+  }
+  return createAuthorizePolicy(principalId, 'Allow', methodArn);
 };

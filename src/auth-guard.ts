@@ -1,3 +1,5 @@
+import { Handler } from 'aws-lambda';
+
 type PolicyDocumentStatement = {
   Action: string;
   Effect: string;
@@ -26,15 +28,17 @@ function createAuthorizePolicy(principalId, effect, resource) {
         },
       ],
     };
-    return {
+    const policy: Policy = {
       principalId,
       policyDocument,
     };
+    console.log(policy);
+    return policy;
   }
   return {};
 }
 
-module.exports.handler = async (event) => {
+export const handler: Handler = async (event: any) => {
   console.log(event);
   const { type, methodArn, authorizationToken } = event;
   const principalId = '1234567890';

@@ -116,7 +116,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "mengj-test-deployment-bucket",
-          "S3Key": "serverless/api-gateway-guard/sandbox/1695809176769-2023-09-27T10:06:16.769Z/api-gateway-guard.zip"
+          "S3Key": "serverless/api-gateway-guard/sandbox/1695809338700-2023-09-27T10:08:58.700Z/api-gateway-guard.zip"
         },
         "Handler": "index.handler",
         "Runtime": "nodejs18.x",
@@ -144,7 +144,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "mengj-test-deployment-bucket",
-          "S3Key": "serverless/api-gateway-guard/sandbox/1695809176769-2023-09-27T10:06:16.769Z/api-gateway-guard.zip"
+          "S3Key": "serverless/api-gateway-guard/sandbox/1695809338700-2023-09-27T10:08:58.700Z/api-gateway-guard.zip"
         },
         "Handler": "auth-guard.handler",
         "Runtime": "nodejs18.x",
@@ -334,7 +334,7 @@
         "Type": "TOKEN"
       }
     },
-    "ApiGatewayDeployment1695809170442": {
+    "ApiGatewayDeployment1695809333505": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {

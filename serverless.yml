@@ -36,12 +36,14 @@ package:
   patterns:
     - '!**'
     - dist/lambda.js(.map)?
+    - dist/auth-guard.js(.map)?
     - package.json
     - pnpm-lock.json
 
 functions:
   api:
     handler: index.handler
+    description: Main handler
     events:
       - http:
           path: /
@@ -54,6 +56,7 @@ functions:
             type: token
   AuthGuard:
     handler: auth-guard.handler
+    description: AuthGuard handler
 
 resources:
   Resources:

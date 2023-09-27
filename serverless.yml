@@ -51,8 +51,8 @@ functions:
           authorizer:
             name: AuthGuard
             resultTtlInSeconds: 0
-            identitySource: method.request.header.Authorization
-            type: token
+            identitySource: method.request.header.x-rough-estimate-api-key
+            type: request
   AuthGuard:
     handler: dist/auth-guard.handler
     description: AuthGuard handler
